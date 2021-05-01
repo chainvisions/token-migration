@@ -1,0 +1,26 @@
+{
+  "name": "token-migration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chainvisions/token-migration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/chainvisions/token-migration/issues"
+  },
+  "homepage": "https://github.com/chainvisions/token-migration#readme"
+}
