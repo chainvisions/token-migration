@@ -13,7 +13,7 @@ contract Migrator is Ownable {
     IERC20 public tokenToMigrate;
     address public newToken;
     bool public migrationEnded;
-    uint256 public immutable START_TIME;
+    uint256 public START_TIME;
 
     constructor(IERC20 _tokenToMigrate, address _newToken, uint256 _START_TIME) public {
         tokenToMigrate = _tokenToMigrate;
@@ -21,10 +21,12 @@ contract Migrator is Ownable {
         START_TIME = _START_TIME;
     }
 
-    function migrate(uint256 _amount) public {
+    function migrate() public {
+        require(block.timestamp >= START_TIME);
         require(!migrationEnded, "Migrator: Migration ended");
-        tokenToMigrate.safeTransferFrom(msg.sender, 0x000000000000000000000000000000000000dEaD, _amount);
-        IMigrateableToken(tokenToMigrate).migrate(msg.sender, _amount);
+        uint256 toMigrate = tokenToMigrate.balanceOf(msg.sender);
+        tokenToMigrate.safeTransferFrom(msg.sender, 0x000000000000000000000000000000000000dEaD, toMigrate);
+        IMigrateableToken(newToken).migrate(msg.sender, toMigrate);
     }
 
     function endMigration() public onlyOwner {
